@@ -21,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
         BlogModel(
           title: 'Blog Title $i',
           description: 'Blog Body $i',
+          content: "Blog Content $i",
           author: 'Blog Author $i',
         )
     ];
