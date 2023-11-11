@@ -12,11 +12,11 @@ class BlogCardView extends StatelessWidget {
       elevation: 20,
       child: ListTile(
         title: Text(
-          'Blog Title',
+          blog.title,
           style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
-          'Blog Body',
+          blog.description,
           style: Theme.of(context).textTheme.bodyText2,
         ),
         trailing: const Icon(Icons.arrow_forward_ios),
