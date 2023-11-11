@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:my_blogz/data/models/blog_mode.dart';
+import 'package:my_blogz/presentation/widgets/home_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
 
   @override
@@ -17,10 +19,17 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(selectedIndex == 0 ? 'Home' : 'My Blogs'),
       ),
-      body: const Center(
-        child: Text(
-          'Welcome to My Blogs app!',
-          style: TextStyle(fontSize: 24),
+      body: RefreshIndicator(
+        onRefresh: () async {},
+        child: HomePage(
+          blogs: [
+            for (int i = 0; i < 10; i++)
+              BlogModel(
+                title: 'Blog Title',
+                description: 'Blog Body',
+                author: 'Blog Author',
+              )
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
