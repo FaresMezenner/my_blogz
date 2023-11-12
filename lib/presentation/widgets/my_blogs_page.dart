@@ -17,22 +17,21 @@ class _MyBlogsPageState extends State<MyBlogsPage> {
       itemBuilder: (context, index) {
         return Dismissible(
           key: Key(widget.blogs[index].hashCode.toString()),
+          direction: DismissDirection.endToStart,
           onDismissed: (direction) {
-            if (direction == DismissDirection.endToStart) {
-              // setState(() {
+            setState(() {
               widget.blogs.removeAt(index);
-              // });
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
                     'Blog Deleted',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   duration: const Duration(seconds: 1),
                 ),
               );
-            }
+            });
           },
           child: BlogCardView(
             blog: widget.blogs[index],

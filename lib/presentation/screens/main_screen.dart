@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_blogz/data/models/blog_mode.dart';
+import 'package:my_blogz/presentation/screens/add_blog_screen.dart';
 import 'package:my_blogz/presentation/widgets/home_page.dart';
 import 'package:my_blogz/presentation/widgets/my_blogs_page.dart';
 
@@ -12,19 +13,23 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
-  late List<BlogModel> blogs;
+  final List<BlogModel> blogs = [];
+  final List<BlogModel> myBlogs = [];
 
   @override
   void initState() {
-    blogs = [
-      for (int i = 0; i < 10; i++)
-        BlogModel(
-          title: 'Blog Title $i',
-          description: 'Blog Body $i',
-          content: "Blog Content $i",
-          author: 'Blog Author $i',
-        )
-    ];
+    for (int i = 0; i < 10; i++) {
+      final blog = BlogModel(
+        title: 'Blog Title $i',
+        description: 'Blog Body $i',
+        content: "Blog Content $i",
+        author: 'Blog Author $i',
+      );
+      blogs.add(blog);
+      if (i % 3 == 0) {
+        myBlogs.add(blog);
+      }
+    }
     super.initState();
   }
 
@@ -35,16 +40,22 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(selectedIndex == 0 ? 'Home' : 'My Blogs'),
       ),
-      body: selectedIndex == 0
-          ? RefreshIndicator(
-              onRefresh: () async {},
-              child: HomePage(
+      body: RefreshIndicator(
+        onRefresh: () async {},
+        child: selectedIndex == 0
+            ? HomePage(
                 blogs: blogs,
-              ),
-            )
-          : MyBlogsPage(blogs: blogs),
+              )
+            : MyBlogsPage(blogs: myBlogs),
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddBlogScreen(),
+            ),
+          );
+        },
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
