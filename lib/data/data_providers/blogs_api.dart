@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mac_address/mac_address.dart';
 
-const API_URL = "http://192.168.100.4:3000/api/blogs/";
+const API_URL = "https://my-blogs-backened.onrender.com/api/blogs/";
 
 class BlogsAPI {
   Future<List<dynamic>> fetchRawBlogs() async {
